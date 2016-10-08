@@ -13,5 +13,5 @@ interface StorageController
 {
     public function addPlayer();
     public function getPlayers();
-
+    public function postBet($uid, $bet);
 }

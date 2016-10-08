@@ -35,4 +35,13 @@ class SqliteStorageController implements StorageController
 
         return $store->getAll();
     }
+
+    public function postBet($uid, $bet)
+    {
+        $store = $this->storage->getStore('bets');
+        $bet_id = uniqid();
+        $store->set($bet_id, json_encode(['uid' => $uid, 'bet' => $bet]));
+
+        return $bet_id;
+    }
 }

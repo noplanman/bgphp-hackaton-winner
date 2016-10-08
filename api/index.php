@@ -1,4 +1,7 @@
 <?php
+/**
+ * The code is really messy, but definitely unique!
+ */
 
 namespace FourCheese;
 
@@ -45,15 +48,8 @@ $app->post('/bet', function (Request $request, Response $response) {
     $uid = $input['uid'];
     $bet = $input['bet'];
 
-    $nsql = new NoSQLite\NoSQLite('4cheese.sqlite');
-
-    $store = $nsql->getStore('bets');
-
-    $store->set($uid, json_encode(['bet' => $bet]));
-
-    $response->getBody()->write(var_dump($input));
-
-    return $response;
+    $storage = new SqliteStorageController();
+    $storage->postBet($uid, $bet);
 });
 
 $app->get('/bets', function (Request $request, Response $response) {
