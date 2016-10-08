@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6f5d3d05d70b58db9144bb1ca70c8698",
-    "content-hash": "3b0766dbcef4dfb1a4a2012fef8611d8",
+    "hash": "d801e88fa38a1fe07cafd0752afc0ee1",
+    "content-hash": "2988c4bfb84e5cc76465842edc7d3d05",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -33,6 +33,53 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "time": "2014-12-30 15:22:37"
+        },
+        {
+            "name": "mthenw/nosqlite",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mthenw/nosqlite.php.git",
+                "reference": "38dc77d64c232bd793c63dcd405e1f8d9a9c5ee6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mthenw/nosqlite.php/zipball/38dc77d64c232bd793c63dcd405e1f8d9a9c5ee6",
+                "reference": "38dc77d64c232bd793c63dcd405e1f8d9a9c5ee6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@stable",
+                "squizlabs/php_codesniffer": "1.4.*@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "NoSQLite": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maciej Winnicki",
+                    "email": "maciej.winnicki@gmail.com",
+                    "homepage": "http://maciejwinnicki.pl/"
+                }
+            ],
+            "description": "Simple key => value store based on SQLite3",
+            "homepage": "https://github.com/mthenw/nosqlite.php",
+            "keywords": [
+                "database",
+                "persistence",
+                "sqlite3"
+            ],
+            "time": "2013-09-26 19:14:41"
         },
         {
             "name": "nikic/fast-route",

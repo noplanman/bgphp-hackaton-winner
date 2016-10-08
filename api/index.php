@@ -1,15 +1,15 @@
 <?php
 
+namespace FourCheese;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use NoSQLite;
 
-require __DIR__ . '/./vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 ini_set('opcache.enable', 0);
 
 $app = new \Slim\App;
-
-$GLOBALS['user1'] = uniqid('123', 123);
-$GLOBALS['user2'] = uniqid('123', 123);
 
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
@@ -21,28 +21,51 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->get('/join', function (Request $request, Response $response) {
-    $user = ['id' => $GLOBALS['user1']];
-    $response->getBody()->write(json_encode($user));
+
+    $storage = new SqliteStorageController();
+    $uid = $storage->addPlayer();
+
+    $response->getBody()->write(json_encode($uid));
 
     return $response;
 });
 
 $app->get('/players', function (Request $request, Response $response) {
-    $player_scores = [
-        ['uid' => $GLOBALS['user1'], 'score' => 1],
-        ['uid' => $GLOBALS['user2'], 'score' => 2],
-    ];
-    $response->getBody()->write(json_encode($player_scores));
+    $storage = new SqliteStorageController();
+    $players = $storage->getPlayers();
+
+    $response->getBody()->write(json_encode($players));
 
     return $response;
 });
 
 $app->post('/bet', function (Request $request, Response $response) {
-    $number = $request->getParsedBody();
+    $input = $request->getParsedBody();
 
-    $response->getBody()->write(json_encode($number));
+    $uid = $input['uid'];
+    $bet = $input['bet'];
+
+    $nsql = new NoSQLite\NoSQLite('4cheese.sqlite');
+
+    $store = $nsql->getStore('bets');
+
+    $store->set($uid, json_encode(['bet' => $bet]));
+
+    $response->getBody()->write(var_dump($input));
 
     return $response;
 });
+
+$app->get('/bets', function (Request $request, Response $response) {
+
+    $nsql = new NoSQLite\NoSQLite('4cheese.sqlite');
+
+    $store = $nsql->getStore('bets');
+
+    $val = $store->getAll();
+
+    $response->getBody()->write(json_encode($val));
+});
+
 
 $app->run();
