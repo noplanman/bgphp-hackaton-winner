@@ -9,7 +9,8 @@ $(document).ready(
         $('.join').on('click', function () {
             console.log('thing');
             joinGame();
-            switchView('wait');
+            switchView('game');
+            updateScoreboard();
         });
     }
 );
@@ -38,7 +39,7 @@ function updateScoreboard() {
     var url = API + '/players';
     $.get(url, function (f) {
         makeScoreBoard(f);
-    });
+    }, 'json');
 }
 
 /**
@@ -56,7 +57,7 @@ function makeScoreBoard(scores) {
     for(var i = 0, l = scores.length; i < l; i++) {
         let score = scores[i];
         container.append(
-            addToScoreBoard(score.id, score.score)
+            addToScoreBoard(score.uid, score.score)
         );
     }
 }
